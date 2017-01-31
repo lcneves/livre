@@ -1,0 +1,20 @@
+doctype html
+
+html
+  head
+    title Livre
+    link(rel='stylesheet' type='text/css' href='stylesheets/livre3d.css')
+
+  body
+    // three.js library
+    script(src='scripts/lib/three.js')
+    // threeGeoJSON library for rendering boundaries on the world
+    script(src='scripts/lib/threeGeoJSON.js')
+
+    // livre3d files
+    // TODO: compile in one file for production
+    script(src='scripts/livre3d/renderer.js') // Camera, scene, renderer
+    script(src='scripts/livre3d/light.js')    // Light sources
+    script(src='scripts/livre3d/adm0.js')      // Country borders geoJSON
+    script(src='scripts/livre3d/world.js')    // World
+
