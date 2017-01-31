@@ -41,3 +41,5 @@ jspm_packages
 *.swp
 *.swo
 
+# Resources, such as images and videos
+resources
