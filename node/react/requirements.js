@@ -1,1 +1,1 @@
-var example = require('./compiled/example-react-canvas.js');
+require('./compiled/make-text.js');
