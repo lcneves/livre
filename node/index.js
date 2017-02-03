@@ -21,6 +21,7 @@ const worldPath = path.join(__dirname,
     '..', 'resources', 'geo', 'ThreeGeoJSON');
 const scriptsPath = path.join(__dirname, 'public', 'scripts');
 const stylesheetsPath = path.join(__dirname, 'public', 'stylesheets');
+const imagesPath = path.join(__dirname, 'public', 'images');
 
 // Setup of utilities
 app.set('view engine', 'pug');
@@ -32,6 +33,7 @@ app.get('/', function (req, res) {
 
 app.use('/scripts', express.static(scriptsPath));
 app.use('/stylesheets', express.static(stylesheetsPath));
+app.use('/images', express.static(imagesPath));
 
 app.use('/world', express.static(worldPath));
 

@@ -1,1 +1,1 @@
-require('./compiled/make-text.js');
+require('./compiled/example-react-canvas.js');

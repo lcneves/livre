@@ -1,70 +1,58 @@
+/*
+ * example-react-canvas.js
+ * Copyright 2017 Lucas Neves <lcneves@gmail.com>
+ *
+ * Illustrates the making and rendering of a react-canvas
+ * component using Livre3D.
+ */
 'use strict';
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 var ReactCanvas = require('react-canvas');
+var Livre3D = require('./livre3d.js');
 
 var Surface = ReactCanvas.Surface;
 var Image = ReactCanvas.Image;
-var Layer = ReactCanvas.Layer;
 var Text = ReactCanvas.Text;
 
-var MyComponent = React.createClass({
-
-  render: function () {
-    var surfaceWidth = 400;
-    var surfaceHeight = 400;
-    var imageStyle = this.getImageStyle();
-    var textStyle = this.getTextStyle();
-    var layerStyle = this.getLayerStyle();
-
-    return (
-      <Surface width={surfaceWidth} height={surfaceHeight} left={0} top={0}>
-      <Image style={imageStyle} src='http://images.mentalfloss.com/sites/default/files/styles/article_640x430/public/catffaceheader.jpg' />
-      <Text style={textStyle}>
-      Here is some text below an image.
-      </Text>
-      </Surface>
-      );
+let setup = {
+  surface: {
+    type: 'surface',
+    style: { width: 512, height: 256 }
   },
+  image: {
+    type: 'image',
+    style: { height: 128 },
+    src: 'images/ghouls.jpg'
+  },
+  textA: {
+    type: 'text',
+    style: { top: 128, color: 'red' }
+  },
+  textB: {
+    type: 'text',
+    style: { top: 150, color: 'yellow', left: 200 }
+  }
+};
 
-    getImageHeight: function () {
-      return 200;
-    },
+Livre3D.getProps(setup, function (props) {
 
-    getImageStyle: function () {
-      return {
-        top: 0,
-        left: 0,
-        width: 400,
-        height: this.getImageHeight()
-      };
-    },
-
-    getLayerStyle: function () {
-      return {
-        backgroundColor: '#ffdddd'
-      };
-    },
-
-
-    getTextStyle: function () {
-      return {
-        top: this.getImageHeight() + 20,
-        left: 0,
-        width: 400,
-        height: 40,
-        lineHeight: 40,
-        fontSize: 24,
-        color: 'pink'
-      };
+  class MyComponent extends React.Component {
+    render () {
+      return (
+        <Surface {...props.surface}>
+          <Image {...props.image} />
+          <Text {...props.textA}>
+            Take this!
+          </Text>
+          <Text {...props.textB}>
+            And this!
+          </Text>
+        </Surface>
+      );
     }
+  };
 
+  Livre3D.render(MyComponent, { height: 256 });
 });
 
-var reactContainer = document.createElement('div'); 
-  reactContainer.id = 'exampleReactContainer';
-  reactContainer.className = 'reactContainer';
-document.body.appendChild(reactContainer);
-
-ReactDOM.render(<MyComponent />, document.getElementById('exampleReactContainer'));

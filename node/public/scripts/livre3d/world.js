@@ -12,6 +12,7 @@ textureLoader.load(
     function (oceanMask) {
       oceanMask.offset = new THREE.Vector2(0.25, 0.0);
       oceanMask.wrapS = THREE.RepeatWrapping;
+
       var material = new THREE.MeshPhongMaterial({
         alphaMap: oceanMask,
           wireframe: false,
@@ -20,6 +21,9 @@ textureLoader.load(
           specular: WORLD_SPECULAR,
           color: WORLD_COLOR
       });
+      // We want only specular reflections on the oceans
+      // TODO: not working
+      // material.diffuse.set( 0x000000 );
 
       var geometry = new THREE.SphereGeometry(WORLD_RADIUS,
         WORLD_TESSELATION, WORLD_TESSELATION);
@@ -29,9 +33,11 @@ textureLoader.load(
 });
 
 // Draw the GeoJSON from JS files previously loaded
-drawThreeGeo(adm0, WORLD_RADIUS, 'sphere', {
-  color: 'red'
-})
+//
+// drawThreeGeo(adm0, WORLD_RADIUS, 'sphere', {
+//   color: 'red'
+// })
+//
 // drawThreeGeo(adm1, WORLD_RADIUS + 0.01, 'sphere', {
 //   color: 'yellow'
 // })

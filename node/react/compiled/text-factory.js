@@ -1,70 +1,43 @@
 'use strict';
 
-const WIDTH = 512;
-const HEIGHT = 128;
+const DEFAULT_WIDTH = 512;
+const DEFAULT_HEIGHT = 128;
+const DEFAULT_COLOR = 'black';
+const DEFAULT_FONT_SIZE = 16;
+const DEFAULT_LINE_HEIGHT = 20;
+const DEFAULT_TOP = 0;
+const DEFAULT_LEFT = 0;
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 var ReactCanvas = require('react-canvas');
 
-var Surface = ReactCanvas.Surface;
 var Text = ReactCanvas.Text;
 
-var TextCanvas = React.createClass({
-  displayName: 'TextCanvas',
+module.exports = function (options) {
+  let config = options ? options : {};
+  if (!config.style) config.style = {};
+  if (!config.style.width) config.style.width = DEFAULT_WIDTH;
+  if (!config.style.height) config.style.height = DEFAULT_HEIGHT;
+  if (!config.style.color) config.style.color = DEFAULT_COLOR;
+  if (!config.style.fontSize) config.style.fontSize = DEFAULT_FONT_SIZE;
+  if (!config.style.lineHeight) config.style.lineHeight = DEFAULT_LINE_HEIGHT;
+  if (!config.style.top) config.style.top = DEFAULT_TOP;
+  if (!config.style.left) config.style.left = DEFAULT_LEFT;
 
+  var LivreText = React.createClass({
+    displayName: 'LivreText',
 
-  render: function () {
-    let surfaceWidth = WIDTH;
-    let surfaceHeight = HEIGHT;
-    let textStyle = this.getTextStyle();
-
-    return React.createElement(
-      Surface,
-      { width: surfaceWidth, height: surfaceHeight, left: 0, top: 0 },
-      React.createElement(
+    render: function () {
+      return React.createElement(
         Text,
-        { style: textStyle },
-        this.props.text
-      )
-    );
-  },
-
-  getTextStyle: function () {
-    return {
-      top: 0,
-      left: 0,
-      width: WIDTH,
-      height: HEIGHT,
-      lineHeight: 40,
-      fontSize: 24,
-      color: 'pink'
-    };
-  }
-});
-
-module.exports = function (text) {
-  // Create hidden container and pass it to react-canvas for rendering
-  let reactContainer = document.createElement('div');
-  reactContainer.className = 'reactContainer';
-  document.body.appendChild(reactContainer);
-  ReactDOM.render(React.createElement(TextCanvas, { text: text }), reactContainer);
-  let canvas = reactContainer.childNodes[0];
-
-  // Create and render three.js object based on the canvas rendered above
-  let texture = new THREE.Texture(canvas);
-  let geometry = new THREE.PlaneGeometry(WIDTH / 100, HEIGHT / 100);
-  let material = new THREE.MeshBasicMaterial({
-    map: texture,
-    side: THREE.DoubleSide
+        { style: this.props.style },
+        'Take this text!'
+      );
+    }
   });
-  material.transparent = true;
-  let mesh = new THREE.Mesh(geometry, material);
-  mesh.position.z = 13;
-  scene.add(mesh);
 
-  texture.needsUpdate = true;
-
-  // We don't need the hidden container any longer
-  document.body.removeChild(reactContainer);
+  return {
+    component: LivreText,
+    options: config
+  };
 };
