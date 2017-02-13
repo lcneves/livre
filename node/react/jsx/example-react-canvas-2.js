@@ -19,6 +19,8 @@ var Text = ReactCanvas.Text;
 const WIDTH = 800;
 
 var panel = new THREE.Object3D();
+panel.position.x = -5;
+panel.position.y = 3;
 
 let setup = {
   surface: {

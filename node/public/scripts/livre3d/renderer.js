@@ -24,7 +24,9 @@ var camera = new THREE.PerspectiveCamera(
 );
 camera.position.z = CAMERA_INITIAL_DISTANCE;
 
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({
+  antialias: true
+});
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 

@@ -4,17 +4,17 @@ const DEFAULT_WIDTH = 512;
 const DEFAULT_HEIGHT = 128;
 // The canvas size in pixels will be divided by this factor to obtain the
 // geometry dimensions
-const DEFAULT_SIZE_RATIO = 100;
+const DEFAULT_SIZE_RATIO = 128;
 const DEFAULT_POSITION = {
   x: 0,
   y: 0,
-  z: 13
+  z: 0
 };
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-module.exports = function (Component, options) {
+module.exports = function (Component, parentObject, options) {
 
   var reactContainer;
   var texture;
@@ -31,6 +31,10 @@ module.exports = function (Component, options) {
       // Create and render three.js object based on the canvas just rendered
       let canvas = reactContainer.childNodes[0];
       texture = new THREE.Texture(canvas);
+      // The lines above are needed so that dimensions other than
+      // powers of two are accepted as texture
+      texture.wrapS = texture.wrapT = THREE.ClampToEdgeWrapping;
+      texture.minFilter = THREE.LinearFilter;
 
       let geometry = new THREE.PlaneGeometry(config.width / config.sizeRatio, config.height / config.sizeRatio);
 
@@ -45,7 +49,7 @@ module.exports = function (Component, options) {
       mesh.position.y = config.position.y;
       mesh.position.z = config.position.z;
 
-      scene.add(mesh);
+      parentObject.add(mesh);
 
       texture.needsUpdate = true;
 

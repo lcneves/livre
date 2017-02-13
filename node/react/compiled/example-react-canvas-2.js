@@ -19,24 +19,26 @@ var Text = ReactCanvas.Text;
 const WIDTH = 800;
 
 var panel = new THREE.Object3D();
+panel.position.x = -5;
+panel.position.y = 3;
 
 let setup = {
   surface: {
     type: 'surface',
-    style: { width: WIDTH, height: WIDTH/2 }
+    style: { width: WIDTH, height: WIDTH / 2 }
   },
   image: {
     type: 'image',
     style: {
       width: WIDTH,
-      height: WIDTH/4
+      height: WIDTH / 4
     },
     src: 'images/ghouls.jpg'
   },
   textA: {
     type: 'text',
     style: {
-      top: WIDTH/4,
+      top: WIDTH / 4,
       color: 'red',
       fontSize: 30,
       lineHeight: 36 }
@@ -44,8 +46,8 @@ let setup = {
   textB: {
     type: 'text',
     style: {
-      top: WIDTH/3,
-      left: WIDTH/3,
+      top: WIDTH / 3,
+      left: WIDTH / 3,
       color: 'yellow',
       fontSize: 24,
       lineHeight: 28 }
@@ -55,43 +57,47 @@ let setup = {
 Livre3D.getProps(setup, function (props) {
 
   class MyComponent extends React.Component {
-    render () {
-      return (
-        <Surface {...props.surface}>
-          <Image {...props.image} />
-          <Text {...props.textA}>
-            Take this!
-          </Text>
-          <Text {...props.textB}>
-            And this!
-          </Text>
-        </Surface>
+    render() {
+      return React.createElement(
+        Surface,
+        props.surface,
+        React.createElement(Image, props.image),
+        React.createElement(
+          Text,
+          props.textA,
+          'Take this!'
+        ),
+        React.createElement(
+          Text,
+          props.textB,
+          'And this!'
+        )
       );
     }
   };
 
   Livre3D.render(MyComponent, panel, {
     width: WIDTH,
-    height: WIDTH/2
+    height: WIDTH / 2
   });
 });
 
 // Buttons
 let geometry = new THREE.SphereGeometry(0.1, 32, 32);
 
-let redMaterial = new THREE.MeshPhongMaterial( {
+let redMaterial = new THREE.MeshPhongMaterial({
   color: 0x880000,
   specular: 0x444444
-} );
-let redSphere = new THREE.Mesh( geometry, redMaterial );
+});
+let redSphere = new THREE.Mesh(geometry, redMaterial);
 redSphere.position.x = 2.4;
 redSphere.position.y = 1.5;
 
-let greenMaterial = new THREE.MeshPhongMaterial( {
+let greenMaterial = new THREE.MeshPhongMaterial({
   color: 0x008800,
   specular: 0x444444
 });
-let greenSphere = new THREE.Mesh( geometry, greenMaterial );
+let greenSphere = new THREE.Mesh(geometry, greenMaterial);
 greenSphere.position.x = 2.7;
 greenSphere.position.y = 1.5;
 greenSphere.onClick = function () {
