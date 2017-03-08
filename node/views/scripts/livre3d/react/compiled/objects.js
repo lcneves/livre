@@ -5,11 +5,16 @@
  * Adds and removes 3D objects to other objects.
  * Also handles clicks to these objects.
  * Part of the Livre3D project.
- * Click handling dapted from:
+ * Click handling adapted from:
  * https://threejs.org/examples/canvas_interactive_cubes.html .
  */
 
 'use strict';
+
+const THREE = require('three');
+var engine = require('../../engine.js');
+var renderer = engine.renderer;
+var camera = engine.camera;
 
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel react/jsx -d react/compiled --presets react && browserify react/requirements.js -o public/scripts/livre3d/react-bundle.js"
+    "build": "rm views/scripts/livre3d/react/compiled/*.js && babel views/scripts/livre3d/react/jsx -d views/scripts/livre3d/react/compiled --presets react && browserify views/scripts/livre3d/requirements.js -o views/scripts/livre3d/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
     "pug": "^2.0.0-beta8",
     "react": "^0.14.0",
     "react-canvas": "^1.2.1",
-    "react-dom": "^0.14.0"
+    "react-dom": "^0.14.0",
+    "three": "^0.84.0"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",

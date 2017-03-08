@@ -7,6 +7,7 @@
  */
 'use strict';
 
+const THREE = require('three');
 var React = require('react');
 var ReactCanvas = require('react-canvas');
 var Livre3D = require('./livre3d.js');
@@ -19,6 +20,8 @@ var Text = ReactCanvas.Text;
 const WIDTH = 800;
 
 var panel = new THREE.Object3D();
+panel.position.x = -5;
+panel.position.y = 3;
 
 let setup = {
   surface: {

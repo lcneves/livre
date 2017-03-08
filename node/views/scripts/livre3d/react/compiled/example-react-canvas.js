@@ -7,23 +7,29 @@
  */
 'use strict';
 
+const THREE = require('three');
 var React = require('react');
 var ReactCanvas = require('react-canvas');
 var Livre3D = require('./livre3d.js');
 var UI = require('./ui.js');
 
+var engine = require('../../engine.js');
+
 var Surface = ReactCanvas.Surface;
 var Image = ReactCanvas.Image;
 var Text = ReactCanvas.Text;
 
-const WIDTH = 800;
+const WORLD_WIDTH = 50;
+const WORLD_HEIGHT = 40;
+const WIDTH = WORLD_WIDTH * engine.pixelToWorldRatio;
+const HEIGHT = WORLD_HEIGHT * engine.pixelToWorldRatio;
 
 var panel = new THREE.Object3D();
 
 let setup = {
   surface: {
     type: 'surface',
-    style: { width: WIDTH, height: WIDTH / 2 }
+    style: { width: WIDTH, height: HEIGHT }
   },
   image: {
     type: 'image',
@@ -44,7 +50,7 @@ let setup = {
   textB: {
     type: 'text',
     style: {
-      top: WIDTH / 3,
+      top: 35 * engine.pixelToWorldRatio,
       left: WIDTH / 3,
       color: 'yellow',
       fontSize: 24,
@@ -75,34 +81,37 @@ Livre3D.getProps(setup, function (props) {
   };
 
   Livre3D.render(MyComponent, panel, {
-    width: WIDTH,
-    height: WIDTH / 2
+    width: WORLD_WIDTH,
+    height: WORLD_HEIGHT
   });
 });
 
 // Buttons
-let geometry = new THREE.SphereGeometry(0.1, 32, 32);
+var buttonRadius = 1;
+let geometry = new THREE.SphereGeometry(buttonRadius, 32, 32);
 
 let redMaterial = new THREE.MeshPhongMaterial({
   color: 0x880000,
   specular: 0x444444
 });
 let redSphere = new THREE.Mesh(geometry, redMaterial);
-redSphere.position.x = 2.4;
-redSphere.position.y = 1.5;
+redSphere.position.x = WORLD_WIDTH / 2 - buttonRadius;
+redSphere.position.y = WORLD_HEIGHT / 2 - buttonRadius;
+
+redSphere.onClick = function () {
+  console.log('I have been clicked!');
+  Livre3D.animate.outRotateFade(panel, function () {
+    Livre3D.objects.remove(panel, UI);
+  });
+};
 
 let greenMaterial = new THREE.MeshPhongMaterial({
   color: 0x008800,
   specular: 0x444444
 });
 let greenSphere = new THREE.Mesh(geometry, greenMaterial);
-greenSphere.position.x = 2.7;
-greenSphere.position.y = 1.5;
-greenSphere.onClick = function () {
-  console.log('I have been clicked!');
-  Livre3D.objects.remove(panel, UI);
-};
-
+greenSphere.position.x = WORLD_WIDTH / 2 - 5 * buttonRadius;
+greenSphere.position.y = WORLD_HEIGHT / 2 - buttonRadius;
 Livre3D.objects.add(redSphere, panel);
 Livre3D.objects.add(greenSphere, panel);
 
