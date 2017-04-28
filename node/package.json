@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm views/scripts/livre3d/react/compiled/*.js && babel views/scripts/livre3d/react/jsx -d views/scripts/livre3d/react/compiled --presets react && browserify views/scripts/livre3d/requirements.js -o public/scripts/livre3d/index.js && stylus views/stylus -o public/stylesheets",
-    "build-scripts": "rm views/scripts/livre3d/react/compiled/*.js && babel views/scripts/livre3d/react/jsx -d views/scripts/livre3d/react/compiled --presets react && browserify views/scripts/livre3d/requirements.js -o public/scripts/livre3d/index.js",
-    "build-css": "stylus views/stylus -o public/stylesheets"
+    "build": "rm scripts/livre3d/react/compiled/*.js && babel scripts/livre3d/react/jsx -d scripts/livre3d/react/compiled --presets react && browserify scripts/livre3d/requirements.js -o public/scripts/livre3d/index.js && stylus stylus -o public/stylesheets",
+    "build-scripts": "rm scripts/livre3d/react/compiled/*.js && babel scripts/livre3d/react/jsx -d scripts/livre3d/react/compiled --presets react && browserify scripts/livre3d/requirements.js -o public/scripts/livre3d/index.js",
+    "build-css": "stylus stylus -o public/stylesheets"
   },
   "repository": {
     "type": "git",
