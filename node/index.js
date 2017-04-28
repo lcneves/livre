@@ -17,11 +17,24 @@ var app = express();
 
 // Constant definitions
 const PORT = 34567;
-const worldPath = path.join(__dirname,
-    '..', 'resources', 'geo', 'ThreeGeoJSON');
-const scriptsPath = path.join(__dirname, 'public', 'scripts');
-const stylesheetsPath = path.join(__dirname, 'public', 'stylesheets');
-const imagesPath = path.join(__dirname, 'public', 'images');
+const STATIC_PATHS = [
+  {
+    get: '/world',
+    dir: path.join(__dirname, '..', 'resources', 'geo', 'ThreeGeoJSON')
+  },
+  {
+    get: '/scripts',
+    dir: path.join(__dirname, 'public', 'scripts')
+  },
+  {
+    get: '/stylesheets',
+    dir: path.join(__dirname, 'public', 'stylesheets')
+  },
+  {
+    get: '/images',
+    dir: path.join(__dirname, 'public', 'images')
+  }
+];
 
 // Setup of utilities
 app.set('view engine', 'pug');
@@ -31,11 +44,9 @@ app.get('/', function (req, res) {
   res.render('index', {});
 });
 
-app.use('/scripts', express.static(scriptsPath));
-app.use('/stylesheets', express.static(stylesheetsPath));
-app.use('/images', express.static(imagesPath));
-
-app.use('/world', express.static(worldPath));
+for (let path of STATIC_PATHS) {
+  app.use(path['get'], express.static(path['dir']));
+}
 
 // All set, let's listen!
 app.listen(PORT, function () {
