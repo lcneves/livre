@@ -1,42 +1,29 @@
 /*
- * livre3d.js
+ * engine.js
  * Copyright 2017 Lucas Neves <lcneves@gmail.com>
  *
- * The GUI for the Livre project, based on WebGL and three.js
+ * Engine for the Livre project based on WebGL and three.js
  */
 
 'use strict';
 
-const THREE = require('three');
-
-// Constant definitions
-const NEAR = 1;
-const FAR = 100;
-const CAMERA_INITIAL_DISTANCE = 50;
-const WORLD_WIDTH = 100;
-
 var width, height, aspectRatio, pixelToWorldRatio;
-
 function setViewportParameters () {
   width = window.innerWidth;
   height = window.innerHeight;
   aspectRatio = width / height;
-  pixelToWorldRatio = width / WORLD_WIDTH;
 };
 setViewportParameters();
 
-// Setup scene, camera and render
-var scene = new THREE.Scene();
+const THREE = require('three');
 
-var camera = new THREE.OrthographicCamera(
-  -WORLD_WIDTH / 2,
-  WORLD_WIDTH / 2,
-  WORLD_WIDTH / (2 * aspectRatio),
-  -WORLD_WIDTH / (2 * aspectRatio),
-  NEAR,
-  FAR
-);
-camera.position.z = CAMERA_INITIAL_DISTANCE;
+// TODO: Make it possible to choose theme
+const theme = require('./themes/liberty/app.js');
+
+var scene,
+    body,
+    lights,
+    camera;
 
 var renderer = new THREE.WebGLRenderer({
   antialias: true
@@ -44,27 +31,52 @@ var renderer = new THREE.WebGLRenderer({
 renderer.setSize( width, height );
 document.body.appendChild( renderer.domElement );
 
-function render() {
-  requestAnimationFrame( render );
-  renderer.render( scene, camera );
-}
-render();
-
 // Resize canvas on window resize
 window.addEventListener('resize', function () {
   setViewportParameters();
   renderer.setSize(width, height);
-  camera.left = -WORLD_WIDTH / 2;
-  camera.right = WORLD_WIDTH / 2;
-  camera.top = WORLD_WIDTH / (2 * aspectRatio);
-  camera.bottom = -WORLD_WIDTH / (2 * aspectRatio);
-  camera.updateProjectionMatrix();
+  if (camera) {
+    camera.update(width, height);
+  }
 });
 
-module.exports = {
-  scene: scene,
-  camera: camera,
-  renderer: renderer,
-  worldWidth: WORLD_WIDTH,
-  pixelToWorldRatio: pixelToWorldRatio
+// Load utility libraries of this project
+require('./utils/click.js')(THREE, renderer, camera, body);
+
+function render() {
+  requestAnimationFrame( render );
+  renderer.render( scene, camera );
+}
+
+function resetScene() {
+  scene = new theme.Scene();
+  camera = new theme.Camera(width, height);
+  lights = new theme.Lights();
+  body = new theme.Body();
+
+  scene.add(lights);
+  scene.add(body);
+
+  render();
+}
+
+// Functions to be exported.
+// Exported functions get assigned to a variable. Utility functions don't.
+var makeShell = function makeShell(options) {
+  // TODO: config based on options
+
+  resetScene();
+
+  makeHeader();
+  
+}
+
+function makeHeader(options) {
+  theme.makeLogo.then(logo => body.add(logo));
+  theme.makeMenu.then(menu => body.add(menu));
 };
+
+module.exports = {
+  makeShell: makeShell
+};
+

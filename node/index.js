@@ -19,8 +19,8 @@ var app = express();
 const PORT = 34567;
 const STATIC_PATHS = [
   {
-    get: '/world',
-    dir: path.join(__dirname, '..', 'resources', 'geo', 'ThreeGeoJSON')
+    get: '/public',
+    dir: path.join(__dirname, 'public')
   },
   {
     get: '/scripts',

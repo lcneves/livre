@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm scripts/livre3d/react/compiled/*.js && babel scripts/livre3d/react/jsx -d scripts/livre3d/react/compiled --presets react && browserify scripts/livre3d/requirements.js -o public/scripts/livre3d/index.js && stylus stylus -o public/stylesheets",
-    "build-scripts": "rm scripts/livre3d/react/compiled/*.js && babel scripts/livre3d/react/jsx -d scripts/livre3d/react/compiled --presets react && browserify scripts/livre3d/requirements.js -o public/scripts/livre3d/index.js",
+    "build": "browserify scripts/livre3d/app.js -o public/scripts/livre3d.js -t [ babelify --presets [ env react ] ] && stylus stylus -o public/stylesheets",
+    "build-scripts": "browserify scripts/livre3d/app.js -o public/scripts/livre3d.js -t [ babelify --presets [ env react ] ]",
     "build-css": "stylus stylus -o public/stylesheets"
   },
   "repository": {
@@ -30,6 +30,9 @@
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
-    "babel-preset-react": "^6.22.0"
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.22.0",
+    "babelify": "^7.3.0"
   }
 }
