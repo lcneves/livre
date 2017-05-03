@@ -19,3 +19,6 @@
 [submodule "livre-html"]
 	path = livre-html
 	url = git@github.com:lcneves/livre-html.git
+[submodule "liberty-flat"]
+	path = liberty-flat
+	url = git@github.com:lcneves/liberty-flat.git
