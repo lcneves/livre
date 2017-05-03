@@ -16,3 +16,6 @@
 [submodule "example"]
 	path = example
 	url = https://github.com/lcneves/livre-example
+[submodule "livre-html"]
+	path = livre-html
+	url = git@github.com:lcneves/livre-html.git
