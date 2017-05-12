@@ -10,9 +10,6 @@
 [submodule "liberty"]
 	path = liberty
 	url = https://github.com/lcneves/liberty
-[submodule "foxx"]
-	path = foxx
-	url = https://github.com/lcneves/livre-foxx
 [submodule "example"]
 	path = example
 	url = https://github.com/lcneves/livre-example
