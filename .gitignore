@@ -40,3 +40,4 @@ jspm_packages
 *~
 *.swp
 *.swo
+.tern-project
