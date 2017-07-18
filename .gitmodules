@@ -1,18 +1,18 @@
 [submodule "server"]
 	path = server
-	url = https://github.com/lcneves/livre-server
+	url = git@github.com:lcneves/livre-server.git
 [submodule "client"]
 	path = client
-	url = https://github.com/lcneves/livre-client
-[submodule "livre3d"]
-	path = livre3d
-	url = https://github.com/lcneves/livre3d
+	url = git@github.com:lcneves/livre-client.git
+[submodule "w3d"]
+	path = w3d
+	url = git@github.com:lcneves/w3d.git
 [submodule "liberty"]
 	path = liberty
-	url = https://github.com/lcneves/liberty
+	url = git@github.com:lcneves/liberty.git
 [submodule "example"]
 	path = example
-	url = https://github.com/lcneves/livre-example
+	url = git@github.com:lcneves/livre-example.git
 [submodule "livre-html"]
 	path = livre-html
 	url = git@github.com:lcneves/livre-html.git
